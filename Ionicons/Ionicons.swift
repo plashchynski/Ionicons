@@ -21,14 +21,14 @@ public class Ionicons: NSObject {
         
         if(font ==  nil){
             
-            var path = NSBundle(forClass: self.classForCoder()).pathForResource("ionicons", ofType: "ttf")
+            let path = NSBundle(forClass: self.classForCoder()).pathForResource("ionicons", ofType: "ttf")
             
-            var inData = NSData(contentsOfFile:path!)
+            let inData = NSData(contentsOfFile:path!)
     
             
-            var provider = CGDataProviderCreateWithCFData(inData);
+            let provider = CGDataProviderCreateWithCFData(inData);
             
-            var f = CGFontCreateWithDataProvider(provider);
+            let f = CGFontCreateWithDataProvider(provider);
             
             if (!CTFontManagerRegisterGraphicsFont(f!, nil)) {
                 
@@ -61,7 +61,7 @@ public class Ionicons: NSObject {
     }
     
     
-    public class func labelWithIcon(#iconName:Ionicon, size: CGFloat, color: UIColor) -> UILabel {
+    public class func labelWithIcon(iconName iconName:Ionicon, size: CGFloat, color: UIColor) -> UILabel {
     
         var label = UILabel()
         self.label(&label, setIcon: iconName, size: size, color: color, sizeToFit: true)
@@ -75,24 +75,24 @@ public class Ionicons: NSObject {
         
     }
     
-    public class func imageWithIcon(#iconName:Ionicon, iconSize: CGFloat, iconColour: UIColor = UIColor.blackColor(), imageSize: CGSize) -> UIImage {
+    public class func imageWithIcon(iconName iconName:Ionicon, iconSize: CGFloat, iconColour: UIColor = UIColor.blackColor(), imageSize: CGSize) -> UIImage {
         
         if ((UIDevice.currentDevice().systemVersion as NSString).floatValue < 6) {
             NSLog("[ IonIcons ] Incompatible system version.")
             return UIImage()
         }
         
-        var style = NSMutableParagraphStyle()
+        let style = NSMutableParagraphStyle()
         style.alignment = NSTextAlignment.Left
         style.baseWritingDirection = NSWritingDirection.LeftToRight
         
         UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0);
         
-        var attString = NSAttributedString(string: iconName.rawValue, attributes: [NSFontAttributeName:  Ionicons.fontWithSize(iconSize), NSForegroundColorAttributeName: iconColour, NSParagraphStyleAttributeName: style])
+        let attString = NSAttributedString(string: iconName.rawValue, attributes: [NSFontAttributeName:  Ionicons.fontWithSize(iconSize), NSForegroundColorAttributeName: iconColour, NSParagraphStyleAttributeName: style])
         
         // get the target bounding rect in order to center the icon within the UIImage:
-        var ctx = NSStringDrawingContext()
-        var boundingRect = attString.boundingRectWithSize(CGSizeMake(iconSize, iconSize), options: NSStringDrawingOptions.UsesDeviceMetrics, context: ctx)
+        let ctx = NSStringDrawingContext()
+        let boundingRect = attString.boundingRectWithSize(CGSizeMake(iconSize, iconSize), options: NSStringDrawingOptions.UsesDeviceMetrics, context: ctx)
         
         attString.drawInRect(CGRectMake((imageSize.width/2.0) - boundingRect.size.width/2.0, (imageSize.height/2.0) - boundingRect.size.height/2.0, imageSize.width, imageSize.height))
         
